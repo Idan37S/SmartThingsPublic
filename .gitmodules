@@ -2,3 +2,7 @@
 	path = Submodules/bjpierron_SmartThings-Alexa
 	url = https://github.com/bjpierron/SmartThings-Alexa.git
 	branch = master
+[submodule "Submodules/krlaframboise_SmartThings"]
+	path = Submodules/krlaframboise_SmartThings
+	url = https://github.com/krlaframboise/SmartThings.git
+	branch = master
