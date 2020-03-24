@@ -1,0 +1,4 @@
+[submodule "Submodules/bjpierron_SmartThings-Alexa"]
+	path = Submodules/bjpierron_SmartThings-Alexa
+	url = https://github.com/bjpierron/SmartThings-Alexa.git
+	branch = master
