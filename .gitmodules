@@ -6,3 +6,11 @@
 	path = Submodules/krlaframboise_SmartThings
 	url = https://github.com/krlaframboise/SmartThings.git
 	branch = master
+[submodule "Submodules/RobinWinbourne_devicetypes"]
+	path = Submodules/RobinWinbourne_devicetypes
+	url = https://github.com/RobinWinbourne/devicetypes.git
+	branch = master
+[submodule "Submodules/pstuart_Generic-Video-Camera"]
+	path = Submodules/pstuart_Generic-Video-Camera
+	url = https://github.com/pstuart/Generic-Video-Camera.git
+	branch = master
