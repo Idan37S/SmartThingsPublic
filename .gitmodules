@@ -18,3 +18,7 @@
 	path = Submodules/loverso-smartthings_googleDocsLogging
 	url = https://github.com/loverso-smartthings/googleDocsLogging.git
 	branch = master
+[submodule "Submodules/infofiend_GCal-Search"]
+	path = Submodules/infofiend_GCal-Search
+	url = https://github.com/infofiend/GCal-Search.git
+	branch = master
