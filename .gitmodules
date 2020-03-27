@@ -14,3 +14,7 @@
 	path = Submodules/pstuart_Generic-Video-Camera
 	url = https://github.com/pstuart/Generic-Video-Camera.git
 	branch = master
+[submodule "Submodules/loverso-smartthings_googleDocsLogging"]
+	path = Submodules/loverso-smartthings_googleDocsLogging
+	url = https://github.com/loverso-smartthings/googleDocsLogging.git
+	branch = master
