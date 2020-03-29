@@ -22,3 +22,7 @@
 	path = Submodules/infofiend_GCal-Search
 	url = https://github.com/infofiend/GCal-Search.git
 	branch = master
+[submodule "Submodules/iBeech_SmartThings"]
+	path = Submodules/iBeech_SmartThings
+	url = https://github.com/iBeech/SmartThings.git
+	branch = master
