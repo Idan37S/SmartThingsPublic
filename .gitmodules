@@ -26,3 +26,11 @@
 	path = Submodules/iBeech_SmartThings
 	url = https://github.com/iBeech/SmartThings.git
 	branch = master
+[submodule "Submodules/jebbett_Plex2SmartThings"]
+	path = Submodules/jebbett_Plex2SmartThings
+	url = https://github.com/jebbett/Plex2SmartThings.git
+	branch = PlexPlus
+[submodule "Submodules/jebbett_Plex-Communicator"]
+	path = Submodules/jebbett_Plex-Communicator
+	url = https://github.com/jebbett/Plex-Communicator.git
+	branch = master
