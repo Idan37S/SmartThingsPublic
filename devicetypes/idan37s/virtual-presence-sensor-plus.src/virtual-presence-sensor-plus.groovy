@@ -34,17 +34,17 @@ metadata {
 
     tiles(scale: 2) {
         standardTile("presence", "device.presence", width: 3, height: 3, canChangeBackground: true) {
-            state("not present", label:'Not Present', icon:"st.presence.tile.not-present", backgroundColor:"#FFFFFF", action:"almost_arrived")
-            state("near", label:'Near', icon:"st.presence.tile.not-present", backgroundColor:"#B3EBFF", action:"arrived")
-            state("present", label:'Present', icon:"st.presence.tile.present", backgroundColor:"#00A0DC", action:"departed")
+            state "not present", label:'Not Present', action:"almost_arrived", icon:"st.presence.tile.not-present", backgroundColor:"#ffffff", nextState:"near"
+            state "near", label:'Near', action:"arrived", icon:"st.presence.tile.presence-default", backgroundColor:"#b3ebff", nextState:"present"
+            state "present", label:'Present', action:"departed", icon:"st.presence.tile.present", backgroundColor:"#00a0dc", nextState:"not present"
         }
         standardTile("button", "device.switch", width: 3, height: 3, canChangeIcon: false,  canChangeBackground: true) {
-			state "off", label: 'Not Present', action: "switch.on", icon: "st.Kids.kid10", backgroundColor: "#FFFFFF"
-			state "on", label: 'Present', action: "switch.off", icon: "st.Kids.kid10", backgroundColor: "#00A0DC"
+			state "off", label: 'Not Present', action: "on", icon: "st.presence.tile.not-present", backgroundColor: "#ffffff", nextState:"on"
+			state "on", label: 'Present', action: "off", icon: "st.presence.tile.present", backgroundColor: "#00a0dc", nextState:"off"
 		}
 		
-        main "presence"
-        details (["presence", "button"])
+        main("presence")
+        details(["presence", "button"])
     }
 }
 
