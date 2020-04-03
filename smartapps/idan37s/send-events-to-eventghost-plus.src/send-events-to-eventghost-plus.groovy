@@ -38,10 +38,10 @@
 // controller, should sort that out before tearing down the current minimote configs
 
 definition(
-    name: "Send Events to EventGhost",
-    namespace: "aderusha",
-    author: "aderusha",
-    description: "Send SmartThings events to EventGhost",
+    name: "Send Events to EventGhost Plus",
+    namespace: "idan37s",
+    author: "Idan Slonimsky",
+    description: "Send SmartThings events to EventGhost from Local LAN (Hub) or Cloud",
     category: "Convenience",
 	iconUrl: "https://s3.amazonaws.com/aderusha/SmartThings/EventGhost_logo.png",
 	iconX2Url: "https://s3.amazonaws.com/aderusha/SmartThings/EventGhost_logo@2x.png"
@@ -51,6 +51,9 @@ preferences {
 	section("EventGhost server address and port"){
 		input "egServer", "text", title: "Server", description: "EventGhost Web Server IP", required: true
 		input "egPort", "number", title: "Port", description: "EventGhost Web Server Port", required: true, defaultValue: 80
+	}
+	section("Send the EventGhost event from local LAN (Hub)?"){
+		input "egSendFromHub", "boolean", title: "Send from Hub?", required: true, defaultValue: true
 	}
 	section("EventGhost Command prefix"){
 		input "egPrefix", "text", title: "Command prefix", required: false, defaultValue: "ST"
@@ -145,6 +148,32 @@ def eventHandlerButton(evt) {
 }
 
 def sendEventGhostEvent(eventName) {
+	if (settings.egSendFromHub == "true") {
+		sendEventGhostEventFromHub(eventName)
+	} else {
+		sendEventGhostEventFromCloud(eventName)
+	}
+}
+
+def sendEventGhostEventFromHub(eventName) {
+	log.debug "sendEventGhostEventFromHub"
+	def egHost = "${settings.egServer}:${settings.egPort}"
+    sendHubCommand(new physicalgraph.device.HubAction(
+    [
+        path: "/?${eventName}",
+        method: "GET",
+        HOST: "${egHost}",
+        headers: [
+            "Host":"$egHost"
+        ]        
+    ],
+    null,
+    null
+    ))
+}
+
+def sendEventGhostEventFromCloud(eventName) {
+	log.debug "sendEventGhostEventFromCloud"
 	def egEventUrl = "http://${settings.egServer}:${settings.egPort}/?${eventName}"
     log.debug "egEventUrl=${egEventUrl}"
     def params = [
