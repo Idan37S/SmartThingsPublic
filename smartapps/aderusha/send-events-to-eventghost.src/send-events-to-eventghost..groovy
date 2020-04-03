@@ -132,7 +132,7 @@ def eventHandlerValue(evt) {
 	def egRestCommandValue = "$egRestCommand&$egRestValue"
 	log.debug "processed data event ${evt.name} from device ${evt.displayName} with value ${evt.value} and data ${evt.data}"
 	log.debug "egRestCommand:  $egRestCommandValue"
-	sendEventGhostEvent(egRestCommand)
+	sendEventGhostEvent(egRestCommandValue)
 }
 
 def eventHandlerButton(evt) {
