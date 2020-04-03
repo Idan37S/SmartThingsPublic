@@ -118,45 +118,44 @@ def subscribeToEvents() {
 }
 
 def eventHandlerBinary(evt) {
-	def egHost = "${settings.egServer}:${settings.egPort}"
 	def egRawCommand = "${settings.egPrefix}.${evt.displayName}.${evt.name}.${evt.value}"
 	def egRestCommand = java.net.URLEncoder.encode(egRawCommand)
 	log.debug "processed binary event ${evt.name} from device ${evt.displayName} with value ${evt.value} and data ${evt.data}"
 	log.debug "egRestCommand:  $egRestCommand"
-	sendHubCommand(new physicalgraph.device.HubAction("""GET /?$egRestCommand HTTP/1.1\r\nHOST: $egHost\r\n\r\n""", physicalgraph.device.Protocol.LAN))
+	sendEventGhostEvent(egRestCommand)
 }
 
 def eventHandlerValue(evt) {
-	def egHost = "${settings.egServer}:${settings.egPort}"
 	def egRawCommand = "${settings.egPrefix}.${evt.displayName}.${evt.name}"
 	def egRestCommand = java.net.URLEncoder.encode(egRawCommand)
 	def egRestValue = java.net.URLEncoder.encode("${evt.value}")
 	def egRestCommandValue = "$egRestCommand&$egRestValue"
 	log.debug "processed data event ${evt.name} from device ${evt.displayName} with value ${evt.value} and data ${evt.data}"
 	log.debug "egRestCommand:  $egRestCommandValue"
-	sendHubCommand(new physicalgraph.device.HubAction("""GET /?$egRestCommandValue HTTP/1.1\r\nHOST: $egHost\r\n\r\n""", physicalgraph.device.Protocol.LAN))
+	sendEventGhostEvent(egRestCommand)
 }
 
 def eventHandlerButton(evt) {
 	def buttonNumber = evt.jsonData.buttonNumber
-	def egHost = "${settings.egServer}:${settings.egPort}"
 	def egRawCommand = "${settings.egPrefix}.${evt.displayName}.${evt.name}.$buttonNumber.${evt.value}"
 	def egRestCommand = java.net.URLEncoder.encode(egRawCommand)
 	log.debug "processed button event ${evt.name} from device ${evt.displayName} with value ${evt.value} and button $buttonNumber"
 	log.debug "egRestCommand:  $egRestCommand ,  [${egRestCommand}]"
-	//sendHubCommand(new physicalgraph.device.HubAction("""GET /?$egRestCommand HTTP/1.1\r\nHOST: $egHost\r\n\r\n""", physicalgraph.device.Protocol.LAN))
-    
-    sendHubCommand(new physicalgraph.device.HubAction(
-    [
-        path: "/?$egRestCommand",
-        method: "GET",
-        HOST: "${egHost}",
-        headers: [
-            "Host":"$egHost",
-            "Accept":"application/json"
-        ]        
-    ],
-    null,
-    null
-    ))
+	sendEventGhostEvent(egRestCommand)
+}
+
+def sendEventGhostEvent(eventName) {
+	def egEventUrl = "http://${settings.egServer}:${settings.egPort}/?${eventName}"
+    log.debug "egEventUrl=${egEventUrl}"
+    def params = [
+        uri:  "${egEventUrl}"
+    ]
+    try {
+        httpGet(params) {resp ->
+            log.debug "resp status: ${resp.status}"
+            log.debug "resp data: ${resp.data}"
+        }
+    } catch (e) {
+        log.error "error: $e"
+    }
 }
