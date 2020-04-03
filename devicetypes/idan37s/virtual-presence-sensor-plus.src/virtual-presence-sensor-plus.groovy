@@ -38,7 +38,7 @@ metadata {
             state "near", label:'Near', action:"arrived", icon:"st.presence.tile.presence-default", backgroundColor:"#b3ebff", nextState:"present"
             state "present", label:'Present', action:"departed", icon:"st.presence.tile.present", backgroundColor:"#00a0dc", nextState:"not present"
         }
-        standardTile("button", "device.switch", width: 3, height: 3, canChangeIcon: false,  canChangeBackground: true) {
+        standardTile("button", "device.switch", width: 3, height: 3, canChangeIcon: false, canChangeBackground: true) {
 			state "off", label: 'Not Present', action: "on", icon: "st.presence.tile.not-present", backgroundColor: "#ffffff", nextState:"on"
 			state "on", label: 'Present', action: "off", icon: "st.presence.tile.present", backgroundColor: "#00a0dc", nextState:"off"
 		}
